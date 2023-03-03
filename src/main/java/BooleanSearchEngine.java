@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public class BooleanSearchEngine implements SearchEngine {
     protected Map<String, List<PageEntry>> indexing;
 
+
     public BooleanSearchEngine(File pdfsDir) throws IOException {
 
         List<File> files;
@@ -42,6 +43,9 @@ public class BooleanSearchEngine implements SearchEngine {
                     word = word.toLowerCase();
                     freqs.put(word, freqs.getOrDefault(word, 0) + 1);
                 }
+                for (var entry : indexing.entrySet()) {
+                    Collections.sort(entry.getValue());
+                }
 
                 for (Map.Entry<String, Integer> entry : freqs.entrySet()) {
                     List<PageEntry> pageEntries;
@@ -55,13 +59,10 @@ public class BooleanSearchEngine implements SearchEngine {
                     pageEntries.add(new PageEntry(file.getName(), i, value));
                     indexing.put(key, pageEntries);
                 }
-
-                for (var entry : indexing.entrySet()) {
-                    Collections.sort(entry.getValue());
-                }
+            }
             }
         }
-    }
+
 
     @Override
     public List<PageEntry> search(String word) {

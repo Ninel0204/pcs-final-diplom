@@ -11,8 +11,11 @@ public class Client {
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
         ) {
-            out.println("блокчейн");
-            System.out.println(in.readLine());
+            out.println("бизнес");
+            String response;
+            while ((response = in.readLine()) != null) {
+                System.out.println(response);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

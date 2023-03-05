@@ -43,9 +43,7 @@ public class BooleanSearchEngine implements SearchEngine {
                     word = word.toLowerCase();
                     freqs.put(word, freqs.getOrDefault(word, 0) + 1);
                 }
-                for (var entry : indexing.entrySet()) {
-                    Collections.sort(entry.getValue());
-                }
+           
 
                 for (Map.Entry<String, Integer> entry : freqs.entrySet()) {
                     List<PageEntry> pageEntries;
@@ -67,7 +65,8 @@ public class BooleanSearchEngine implements SearchEngine {
     @Override
     public List<PageEntry> search(String word) {
         List<PageEntry> list = indexing.get(word.toLowerCase());
-        return Objects.requireNonNullElse(list, Collections.emptyList());
+        Collections.sort(list);
+        return list;
 
     }
 }
